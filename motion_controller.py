@@ -659,26 +659,39 @@ class MotionController:
 
     def standing_to_position(self):
 
-        variation_leg = 30
-        variation_feet = 45
+        #Current iteration moves Pluto from 41mm to 150mm height (30 and 45 angles)
+
+        variation_leg = 26 #30
+        variation_feet = 39 #45
         break_down_steps = 30 # Make the movement in XXX-steps
 
+        # Find how far away from expected position we are, and we use Feets only at this point
+        diff = (self.servo_rear_feet_left_rest_lim_angle + variation_leg) - self.servo_rear_feet_left_rest_angle
+        if (((self.servo_rear_feet_right_rest_lim_angle + variation_feet)-self.servo_rear_feet_right_rest_angle) > diff)
+            diff = ((self.servo_rear_feet_right_rest_lim_angle + variation_feet)-self.servo_rear_feet_right_rest_angle)
+        if (((self.servo_front_leg_left_rest_angle + variation_feet)-self.servo_front_leg_left_rest_angle) > diff)
+            diff = ((self.servo_front_leg_left_rest_lim_angle + variation_feet)-self.servo_front_leg_left_rest_angle)
+        if (((self.servo_front_feet_right_rest_lim_angle + variation_feet)-self.servo_front_feet_right_rest_angle) > diff)
+            diff = ((self.servo_front_feet_right_rest_lim_angle + variation_feet)-self.servo_front_feet_right_rest_angle)
+
+        break_down_steps = int(diff/1.5)
+
         for x in range(break_down_steps):
-            self.servo_rear_shoulder_left.angle = self.servo_rear_shoulder_left_rest_angle + (10*x/break_down_steps)
+            self.servo_rear_shoulder_left.angle = self.servo_rear_shoulder_left_rest_angle
             self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_angle - (variation_leg*x/break_down_steps)
             self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_angle + (variation_feet*x/break_down_steps)
 
-            self.servo_rear_shoulder_right.angle = self.servo_rear_shoulder_right_rest_angle - (10*x/break_down_steps)
+            self.servo_rear_shoulder_right.angle = self.servo_rear_shoulder_right_rest_angle
             self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_angle + (variation_leg*x/break_down_steps)
             self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_angle - (variation_feet*x/break_down_steps)
 
             #time.sleep(0.05)
 
-            self.servo_front_shoulder_left.angle = self.servo_front_shoulder_left_rest_angle - (10*x/break_down_steps)
+            self.servo_front_shoulder_left.angle = self.servo_front_shoulder_left_rest_angle
             self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_angle - ((variation_leg + 5)*x/break_down_steps)
             self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_angle + ((variation_feet - 5)*x/break_down_steps)
 
-            self.servo_front_shoulder_right.angle = self.servo_front_shoulder_right_rest_angle + (10*x/break_down_steps)
+            self.servo_front_shoulder_right.angle = self.servo_front_shoulder_right_rest_angle
             self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_angle + ((variation_leg - 5)*x/break_down_steps)
             self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - ((variation_feet + 5)*x/break_down_steps)
 
@@ -694,7 +707,7 @@ class MotionController:
         self.servo_rear_feet_right_rest_angle = self.servo_rear_feet_right.angle
 
         self.servo_front_shoulder_left_rest_angle = self.servo_front_shoulder_left.angle
-        self.servo_front_feet_left_rest_angle = self.servo_front_feet_left.angle
+        self.servo_front_leg_left_rest_angle = self.servo_front_leg_left.angle
         self.servo_front_feet_left_rest_angle = self.servo_front_feet_left.angle
 
         self.servo_front_shoulder_right_rest_angle = self.servo_front_shoulder_right.angle
