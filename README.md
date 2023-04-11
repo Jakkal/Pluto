@@ -1,2 +1,2 @@
 # Pluto
-# Testing some new motion controller features for SpotMicro AI
+Testing some new motion controller features for SpotMicro AI
