@@ -157,6 +157,8 @@ class MotionController:
     servo_arm_cam_tilt_max_pulse = None
     servo_arm_cam_tilt_rest_angle = None
 
+    rise_height = None
+
     def __init__(self, communication_queues):
 
         try:
@@ -419,6 +421,8 @@ class MotionController:
         self.servo_front_feet_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_MAX_PULSE)
         self.servo_front_feet_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_REST_ANGLE)
         self.servo_front_feet_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_REST_ANGLE)
+
+        self.rise_height = 0
 
         if self.servo_arm_rotation_pca9685:
             self.servo_arm_rotation_pca9685 = Config().get(Config.ARM_CONTROLLER_SERVOS_ARM_ROTATION_PCA9685)
