@@ -39,6 +39,7 @@ class MotionController:
     servo_rear_shoulder_left_min_pulse = None
     servo_rear_shoulder_left_max_pulse = None
     servo_rear_shoulder_left_rest_angle = None
+    servo_rear_shoulder_left_rest_lim_angle = None
 
     servo_rear_leg_left = None
     servo_rear_leg_left_pca9685 = None
@@ -46,6 +47,7 @@ class MotionController:
     servo_rear_leg_left_min_pulse = None
     servo_rear_leg_left_max_pulse = None
     servo_rear_leg_left_rest_angle = None
+    servo_rear_leg_left_rest_lim_angle = None
 
     servo_rear_feet_left = None
     servo_rear_feet_left_pca9685 = None
@@ -53,6 +55,7 @@ class MotionController:
     servo_rear_feet_left_min_pulse = None
     servo_rear_feet_left_max_pulse = None
     servo_rear_feet_left_rest_angle = None
+    servo_rear_feet_left_rest_lim_angle = None
 
     servo_rear_shoulder_right = None
     servo_rear_shoulder_right_pca9685 = None
@@ -60,6 +63,7 @@ class MotionController:
     servo_rear_shoulder_right_min_pulse = None
     servo_rear_shoulder_right_max_pulse = None
     servo_rear_shoulder_right_rest_angle = None
+    servo_rear_shoulder_right_rest_lim_angle = None
 
     servo_rear_leg_right = None
     servo_rear_leg_right_pca9685 = None
@@ -67,6 +71,7 @@ class MotionController:
     servo_rear_leg_right_min_pulse = None
     servo_rear_leg_right_max_pulse = None
     servo_rear_leg_right_rest_angle = None
+    servo_rear_leg_right_rest_lim_angle = None
 
     servo_rear_feet_right = None
     servo_rear_feet_right_pca9685 = None
@@ -74,6 +79,7 @@ class MotionController:
     servo_rear_feet_right_min_pulse = None
     servo_rear_feet_right_max_pulse = None
     servo_rear_feet_right_rest_angle = None
+    servo_rear_feet_right_rest_lim_angle = None
 
     servo_front_shoulder_left = None
     servo_front_shoulder_left_pca9685 = None
@@ -81,6 +87,7 @@ class MotionController:
     servo_front_shoulder_left_min_pulse = None
     servo_front_shoulder_left_max_pulse = None
     servo_front_shoulder_left_rest_angle = None
+    servo_front_shoulder_left_rest_lim_angle = None
 
     servo_front_leg_left = None
     servo_front_leg_left_pca9685 = None
@@ -88,6 +95,7 @@ class MotionController:
     servo_front_leg_left_min_pulse = None
     servo_front_leg_left_max_pulse = None
     servo_front_leg_left_rest_angle = None
+    servo_front_leg_left_rest_lim_angle = None
 
     servo_front_feet_left = None
     servo_front_feet_left_pca9685 = None
@@ -95,6 +103,7 @@ class MotionController:
     servo_front_feet_left_min_pulse = None
     servo_front_feet_left_max_pulse = None
     servo_front_feet_left_rest_angle = None
+    servo_front_feet_left_rest_lim_angle = None
 
     servo_front_shoulder_right = None
     servo_front_shoulder_right_pca9685 = None
@@ -102,6 +111,7 @@ class MotionController:
     servo_front_shoulder_right_min_pulse = None
     servo_front_shoulder_right_max_pulse = None
     servo_front_shoulder_right_rest_angle = None
+    servo_front_shoulder_right_rest_lim_angle = None
 
     servo_front_leg_right = None
     servo_front_leg_right_pca9685 = None
@@ -109,6 +119,7 @@ class MotionController:
     servo_front_leg_right_min_pulse = None
     servo_front_leg_right_max_pulse = None
     servo_front_leg_right_rest_angle = None
+    servo_front_leg_right_rest_lim_angle = None
 
     servo_front_feet_right = None
     servo_front_feet_right_pca9685 = None
@@ -116,6 +127,7 @@ class MotionController:
     servo_front_feet_right_min_pulse = None
     servo_front_feet_right_max_pulse = None
     servo_front_feet_right_rest_angle = None
+    servo_front_feet_right_rest_lim_angle = None
 
     servo_arm_rotation = None
     servo_arm_rotation_pca9685 = None
@@ -224,43 +236,43 @@ class MotionController:
                 if event['a']:
                     self.rest_position()
 
-                if event['hat0y']:
-                    self.body_move_body_up_and_down(event['hat0y'])
+                #if event['hat0y']:
+                #    self.body_move_body_up_and_down(event['hat0y'])
 
-                if event['hat0x']:
-                    self.body_move_body_left_right(event['hat0x'])
+                #if event['hat0x']:
+                #    self.body_move_body_left_right(event['hat0x'])
 
-                if event['ry']:
-                    self.body_move_body_up_and_down_analog(event['ry'])
+                #if event['ry']:
+                #    self.body_move_body_up_and_down_analog(event['ry'])
 
-                if event['rx']:
-                    self.body_move_body_left_right_analog(event['rx'])
+                #if event['rx']:
+                #    self.body_move_body_left_right_analog(event['rx'])
 
-                if event['hat0x'] and event['tl2']:
+                #if event['hat0x'] and event['tl2']:
                     # 2 buttons example
-                    pass
+                #    pass
 
-                if event['y']:
-                    self.standing_position()
+                #if event['y']:
+                #    self.standing_position()
 
                 if event['b']:
                     self.standing_to_position()
                     #self.body_move_position_right()
 
-                if event['x']:
-                    self.body_move_position_left()
+                #if event['x']:
+                #    self.body_move_position_left()
 
-                if event['tl']:
-                    self.arm_set_rotation(event['lx'])
+                #if event['tl']:
+                #    self.arm_set_rotation(event['lx'])
 
-                if event['tl']:
-                    self.arm_set_lift(event['ly'])
+                #if event['tl']:
+                #    self.arm_set_lift(event['ly'])
 
-                if event['tr']:
-                    self.arm_set_range(event['ly'])
+                #if event['tr']:
+                #    self.arm_set_range(event['ly'])
 
-                if event['tr']:
-                    self.arm_set_cam_tilt(event['ry'])
+                #if event['tr']:
+                #    self.arm_set_cam_tilt(event['ry'])
 
                 self.move()
 
@@ -329,72 +341,84 @@ class MotionController:
         self.servo_rear_shoulder_left_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_LEFT_MIN_PULSE)
         self.servo_rear_shoulder_left_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_LEFT_MAX_PULSE)
         self.servo_rear_shoulder_left_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_LEFT_REST_ANGLE)
+        self.servo_rear_shoulder_left_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_LEFT_REST_ANGLE)
 
         self.servo_rear_leg_left_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_PCA9685)
         self.servo_rear_leg_left_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_CHANNEL)
         self.servo_rear_leg_left_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_MIN_PULSE)
         self.servo_rear_leg_left_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_MAX_PULSE)
         self.servo_rear_leg_left_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_REST_ANGLE)
+        self.servo_rear_leg_left_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_REST_ANGLE)
 
         self.servo_rear_feet_left_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_PCA9685)
         self.servo_rear_feet_left_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_CHANNEL)
         self.servo_rear_feet_left_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_MIN_PULSE)
         self.servo_rear_feet_left_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_MAX_PULSE)
         self.servo_rear_feet_left_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_REST_ANGLE)
+        self.servo_rear_feet_left_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_REST_ANGLE)
 
         self.servo_rear_shoulder_right_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_RIGHT_PCA9685)
         self.servo_rear_shoulder_right_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_RIGHT_CHANNEL)
         self.servo_rear_shoulder_right_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_RIGHT_MIN_PULSE)
         self.servo_rear_shoulder_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_RIGHT_MAX_PULSE)
         self.servo_rear_shoulder_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_RIGHT_REST_ANGLE)
+        self.servo_rear_shoulder_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_SHOULDER_RIGHT_REST_ANGLE)
 
         self.servo_rear_leg_right_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_PCA9685)
         self.servo_rear_leg_right_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_CHANNEL)
         self.servo_rear_leg_right_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_MIN_PULSE)
         self.servo_rear_leg_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_MAX_PULSE)
         self.servo_rear_leg_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_REST_ANGLE)
+        self.servo_rear_leg_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_REST_ANGLE)
 
         self.servo_rear_feet_right_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_PCA9685)
         self.servo_rear_feet_right_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_CHANNEL)
         self.servo_rear_feet_right_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_MIN_PULSE)
         self.servo_rear_feet_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_MAX_PULSE)
         self.servo_rear_feet_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_REST_ANGLE)
+        self.servo_rear_feet_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_REST_ANGLE)
 
         self.servo_front_shoulder_left_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_LEFT_PCA9685)
         self.servo_front_shoulder_left_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_LEFT_CHANNEL)
         self.servo_front_shoulder_left_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_LEFT_MIN_PULSE)
         self.servo_front_shoulder_left_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_LEFT_MAX_PULSE)
         self.servo_front_shoulder_left_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_LEFT_REST_ANGLE)
+        self.servo_front_shoulder_left_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_LEFT_REST_ANGLE)
 
         self.servo_front_leg_left_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_PCA9685)
         self.servo_front_leg_left_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_CHANNEL)
         self.servo_front_leg_left_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_MIN_PULSE)
         self.servo_front_leg_left_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_MAX_PULSE)
         self.servo_front_leg_left_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_REST_ANGLE)
+        self.servo_front_leg_left_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_REST_ANGLE)
 
         self.servo_front_feet_left_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_PCA9685)
         self.servo_front_feet_left_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_CHANNEL)
         self.servo_front_feet_left_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_MIN_PULSE)
         self.servo_front_feet_left_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_MAX_PULSE)
         self.servo_front_feet_left_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_REST_ANGLE)
+        self.servo_front_feet_left_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_REST_ANGLE)
 
         self.servo_front_shoulder_right_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_RIGHT_PCA9685)
         self.servo_front_shoulder_right_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_RIGHT_CHANNEL)
         self.servo_front_shoulder_right_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_RIGHT_MIN_PULSE)
         self.servo_front_shoulder_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_RIGHT_MAX_PULSE)
         self.servo_front_shoulder_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_RIGHT_REST_ANGLE)
+        self.servo_front_shoulder_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_SHOULDER_RIGHT_REST_ANGLE)
 
         self.servo_front_leg_right_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_PCA9685)
         self.servo_front_leg_right_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_CHANNEL)
         self.servo_front_leg_right_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_MIN_PULSE)
         self.servo_front_leg_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_MAX_PULSE)
         self.servo_front_leg_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_REST_ANGLE)
+        self.servo_front_leg_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_REST_ANGLE)
 
         self.servo_front_feet_right_pca9685 = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_PCA9685)
         self.servo_front_feet_right_channel = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_CHANNEL)
         self.servo_front_feet_right_min_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_MIN_PULSE)
         self.servo_front_feet_right_max_pulse = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_MAX_PULSE)
         self.servo_front_feet_right_rest_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_REST_ANGLE)
+        self.servo_front_feet_right_rest_lim_angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_REST_ANGLE)
 
         if self.servo_arm_rotation_pca9685:
             self.servo_arm_rotation_pca9685 = Config().get(Config.ARM_CONTROLLER_SERVOS_ARM_ROTATION_PCA9685)
@@ -627,116 +651,7 @@ class MotionController:
             self.servo_arm_range.angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_ARM_RANGE_REST_ANGLE)
             self.servo_arm_cam_tilt.angle = Config().get(Config.MOTION_CONTROLLER_SERVOS_ARM_CAM_TILT_REST_ANGLE)
 
-    def body_move_body_up_and_down(self, raw_value):
-
-        range = 10
-        range2 = 15
-
-        if raw_value < 0:
-            self.servo_rear_leg_left_rest_angle -= range
-            self.servo_rear_feet_left_rest_angle += range2
-            self.servo_rear_leg_right_rest_angle += range
-            self.servo_rear_feet_right_rest_angle -= range2
-            self.servo_front_leg_left_rest_angle -= range
-            self.servo_front_feet_left_rest_angle += range2
-            self.servo_front_leg_right_rest_angle += range
-            self.servo_front_feet_right_rest_angle -= range2
-
-        elif raw_value > 0:
-            self.servo_rear_leg_left_rest_angle += range
-            self.servo_rear_feet_left_rest_angle -= range2
-            self.servo_rear_leg_right_rest_angle -= range
-            self.servo_rear_feet_right_rest_angle += range2
-            self.servo_front_leg_left_rest_angle += range
-            self.servo_front_feet_left_rest_angle -= range2
-            self.servo_front_leg_right_rest_angle -= range
-            self.servo_front_feet_right_rest_angle += range2
-
-        else:
-            self.rest_position()
-
-        print(str(self.servo_rear_leg_left_rest_angle) + ', ' + str(self.servo_rear_feet_left_rest_angle) + ', ' + str(self.servo_rear_leg_right_rest_angle) + ', ' + str(self.servo_rear_feet_right_rest_angle) + ', ' + str(self.servo_front_leg_left_rest_angle) + ', ' + str(self.servo_front_feet_left_rest_angle) + ', ' + str(self.servo_front_leg_right_rest_angle) + ', ' + str(self.servo_front_feet_right_rest_angle))
-
-    def body_move_body_up_and_down_analog(self, raw_value):
-
-        servo_rear_leg_left_max_angle = 38
-        servo_rear_feet_left_max_angle = 70
-        servo_rear_leg_right_max_angle = 126
-        servo_rear_feet_right_max_angle = 102
-        servo_front_leg_left_max_angle = 57
-        servo_front_feet_left_max_angle = 85
-        servo_front_leg_right_max_angle = 130
-        servo_front_feet_right_max_angle = 120
-
-        delta_rear_leg_left = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_LEFT_REST_ANGLE), servo_rear_leg_left_max_angle), raw_value))
-        delta_rear_feet_left = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_LEFT_REST_ANGLE), servo_rear_feet_left_max_angle), raw_value))
-        delta_rear_leg_right = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_LEG_RIGHT_REST_ANGLE), servo_rear_leg_right_max_angle), raw_value))
-        delta_rear_feet_right = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_REAR_FEET_RIGHT_REST_ANGLE), servo_rear_feet_right_max_angle), raw_value))
-        delta_front_leg_left = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_LEFT_REST_ANGLE), servo_front_leg_left_max_angle), raw_value))
-        delta_front_feet_left = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_LEFT_REST_ANGLE), servo_front_feet_left_max_angle), raw_value))
-        delta_front_leg_right = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_LEG_RIGHT_REST_ANGLE), servo_front_leg_right_max_angle), raw_value))
-        delta_front_feet_right = int(General().maprange((1, -1), (Config().get(Config.MOTION_CONTROLLER_SERVOS_FRONT_FEET_RIGHT_REST_ANGLE), servo_front_feet_right_max_angle), raw_value))
-
-        self.servo_rear_leg_left_rest_angle = delta_rear_leg_left
-        self.servo_rear_feet_left_rest_angle = delta_rear_feet_left
-        self.servo_rear_leg_right_rest_angle = delta_rear_leg_right
-        self.servo_rear_feet_right_rest_angle = delta_rear_feet_right
-        self.servo_front_leg_left_rest_angle = delta_front_leg_left
-        self.servo_front_feet_left_rest_angle = delta_front_feet_left
-        self.servo_front_leg_right_rest_angle = delta_front_leg_right
-        self.servo_front_feet_right_rest_angle = delta_front_feet_right
-
-    def body_move_body_left_right(self, raw_value):
-
-        range = 5
-
-        if raw_value < 0:
-            self.servo_rear_shoulder_left_rest_angle -= range
-            self.servo_rear_shoulder_right_rest_angle -= range
-            self.servo_front_shoulder_left_rest_angle += range
-            self.servo_front_shoulder_right_rest_angle += range
-
-        elif raw_value > 0:
-            self.servo_rear_shoulder_left_rest_angle += range
-            self.servo_rear_shoulder_right_rest_angle += range
-            self.servo_front_shoulder_left_rest_angle -= range
-            self.servo_front_shoulder_right_rest_angle -= range
-
-        else:
-            self.rest_position()
-
-    def body_move_body_left_right_analog(self, raw_value):
-
-        delta_a = int(General().maprange((-1, 1), (30, 150), raw_value))
-        delta_b = int(General().maprange((-1, 1), (150, 30), raw_value))
-
-        self.servo_rear_shoulder_left_rest_angle = delta_a
-        self.servo_rear_shoulder_right_rest_angle = delta_a
-        self.servo_front_shoulder_left_rest_angle = delta_b
-        self.servo_front_shoulder_right_rest_angle = delta_b
-
-    def standing_position(self):
-
-        variation_leg = 30
-        variation_feet = 45
-
-        self.servo_rear_shoulder_left.angle = self.servo_rear_shoulder_left_rest_angle + 10
-        self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_angle - variation_leg
-        self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_angle + variation_feet
-
-        self.servo_rear_shoulder_right.angle = self.servo_rear_shoulder_right_rest_angle - 10
-        self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_angle + variation_leg
-        self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_angle - variation_feet
-
-        time.sleep(0.05)
-
-        self.servo_front_shoulder_left.angle = self.servo_front_shoulder_left_rest_angle - 10
-        self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_angle - variation_leg + 5
-        self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_angle + variation_feet - 5
-
-        self.servo_front_shoulder_right.angle = self.servo_front_shoulder_right_rest_angle + 10
-        self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_angle + variation_leg - 5
-        self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - variation_feet + 5
+### MOTION CONTROL BELOW THIS LINE!
 
     def standing_to_position(self):
 
@@ -764,93 +679,3 @@ class MotionController:
             self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - ((variation_feet + 5)*x/break_down_steps)
 
             time.sleep(0.5)
-
-    def body_move_position_right(self):
-
-        move = 20
-
-        variation_leg = 50
-        variation_feet = 70
-
-        self.servo_rear_shoulder_left.angle = self.servo_rear_shoulder_left_rest_angle + 10 + move
-        self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_angle - variation_leg
-        self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_angle + variation_feet
-
-        self.servo_rear_shoulder_right.angle = self.servo_rear_shoulder_right_rest_angle - 10 + move
-        self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_angle + variation_leg
-        self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_angle - variation_feet
-
-        time.sleep(0.05)
-
-        self.servo_front_shoulder_left.angle = self.servo_front_shoulder_left_rest_angle - 10 - move
-        self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_angle - variation_leg + 5
-        self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_angle + variation_feet - 5
-
-        self.servo_front_shoulder_right.angle = self.servo_front_shoulder_right_rest_angle + 10 - move
-        self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_angle + variation_leg - 5
-        self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - variation_feet + 5
-
-    def body_move_position_left(self):
-
-        move = 20
-
-        variation_leg = 50
-        variation_feet = 70
-
-        self.servo_rear_shoulder_left.angle = self.servo_rear_shoulder_left_rest_angle + 10 - move
-        self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_angle - variation_leg
-        self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_angle + variation_feet
-
-        self.servo_rear_shoulder_right.angle = self.servo_rear_shoulder_right_rest_angle - 10 - move
-        self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_angle + variation_leg
-        self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_angle - variation_feet
-
-        time.sleep(0.05)
-
-        self.servo_front_shoulder_left.angle = self.servo_front_shoulder_left_rest_angle - 10 + move
-        self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_angle - variation_leg + 5
-        self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_angle + variation_feet - 5
-
-        self.servo_front_shoulder_right.angle = self.servo_front_shoulder_right_rest_angle + 10 + move
-        self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_angle + variation_leg - 5
-        self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - variation_feet + 5
-
-    def arm_set_rotation(self, raw_value):
-
-        if not self.servo_arm_rotation_pca9685:
-            return
-
-        left_position = int(General().maprange((-1, 1), (0, 180), raw_value / 2))
-
-        if int(self.servo_arm_rotation.angle) != int(left_position):
-            self.servo_arm_rotation.angle = left_position
-
-    def arm_set_lift(self, raw_value):
-
-        if not self.servo_arm_rotation_pca9685:
-            return
-
-        lift_position = int(General().maprange((-1, 1), (180, 0), raw_value / 2))
-
-        if int(self.servo_arm_lift.angle) != int(lift_position):
-            self.servo_arm_lift.angle = lift_position
-
-    def arm_set_range(self, raw_value):
-
-        if not self.servo_arm_rotation_pca9685:
-            return
-
-        range_position = int(General().maprange((-1, 1), (180, 0), raw_value / 2))
-
-        if int(self.servo_arm_range.angle) != int(range_position):
-            self.servo_arm_range.angle = range_position
-
-    def arm_set_cam_tilt(self, raw_value):
-
-        if not self.servo_arm_rotation_pca9685:
-            return
-
-        tilt_position = int(General().maprange((-1, 1), (100, 150), raw_value))
-
-        if int(self.servo_arm_cam_tilt.angle) != int(tilt_position):
-            self.servo_arm_cam_tilt.angel = tilt_position
