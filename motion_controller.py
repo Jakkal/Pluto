@@ -657,6 +657,23 @@ class MotionController:
 
 ### MOTION CONTROL BELOW THIS LINE!
 
+    def rest_at_current_post(self):
+        self.servo_rear_shoulder_left_rest_angle = self.servo_rear_shoulder_left.angle
+        self.servo_rear_leg_left_rest_angle = self.servo_rear_leg_left.angle
+        self.servo_rear_feet_left_rest_angle = self.servo_rear_feet_left.angle
+
+        self.servo_rear_shoulder_right_rest_angle = self.servo_rear_shoulder_right.angle
+        self.servo_rear_leg_right_rest_angle = self.servo_rear_leg_right.angle
+        self.servo_rear_feet_right_rest_angle = self.servo_rear_feet_right.angle
+
+        self.servo_front_shoulder_left_rest_angle = self.servo_front_shoulder_left.angle
+        self.servo_front_leg_left_rest_angle = self.servo_front_leg_left.angle
+        self.servo_front_feet_left_rest_angle = self.servo_front_feet_left.angle
+
+        self.servo_front_shoulder_right_rest_angle = self.servo_front_shoulder_right.angle
+        self.servo_front_leg_right_rest_angle = self.servo_front_leg_right.angle
+        self.servo_front_feet_right_rest_angle = self.servo_front_feet_right.angle
+
     def standing_to_position(self):
 
         #Current iteration moves Pluto from 41mm to 150mm height (30 and 45 angles)
@@ -698,18 +715,4 @@ class MotionController:
             time.sleep(0.05)
 
         # Set new Rest_angles, so whe know where we are
-        self.servo_rear_shoulder_left_rest_angle = self.servo_rear_shoulder_left.angle
-        self.servo_rear_leg_left_rest_angle = self.servo_rear_leg_left.angle
-        self.servo_rear_feet_left_rest_angle = self.servo_rear_feet_left.angle
-
-        self.servo_rear_shoulder_right_rest_angle = self.servo_rear_shoulder_right.angle
-        self.servo_rear_leg_right_rest_angle = self.servo_rear_leg_right.angle
-        self.servo_rear_feet_right_rest_angle = self.servo_rear_feet_right.angle
-
-        self.servo_front_shoulder_left_rest_angle = self.servo_front_shoulder_left.angle
-        self.servo_front_leg_left_rest_angle = self.servo_front_leg_left.angle
-        self.servo_front_feet_left_rest_angle = self.servo_front_feet_left.angle
-
-        self.servo_front_shoulder_right_rest_angle = self.servo_front_shoulder_right.angle
-        self.servo_front_leg_right_rest_angle = self.servo_front_leg_right.angle
-        self.servo_front_feet_right_rest_angle = self.servo_front_feet_right.angle
+        rest_at_current_post()
