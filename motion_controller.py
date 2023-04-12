@@ -716,3 +716,12 @@ class MotionController:
 
         # Set new Rest_angles, so whe know where we are
         rest_at_current_post()
+
+        def Stand_at_height(self,height):
+            #Leg and feet length
+            leg_length = 110
+            feet_length = 115
+            
+            #Set angles
+            Valpha = math.acos(((height*height)+(leg_length*leg_length)-(feet_length*feet_length))/(2*height*leg_length)) * (180.0 / math.pi)
+            Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(height*height))/(2*feet_length*leg_length)) * (180.0 / math.pi)
