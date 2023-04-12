@@ -7,6 +7,7 @@ from board import SCL, SDA
 from adafruit_pca9685 import PCA9685
 from adafruit_motor import servo
 import time
+import math
 
 from spotmicroai.utilities.log import Logger
 from spotmicroai.utilities.config import Config
@@ -718,18 +719,24 @@ class MotionController:
         rest_at_current_post()
 
     def Stand_at_height(self,height):
+        #Limit height, so robot doesn't crash
+        if (height > 170)
+            height = 170
+        if (height < 70)
+            height = 70
+
         #Leg and feet length
         leg_length = 110
         feet_length = 115
-            
+
         #Set angles
         Valpha = math.acos(((height*height)+(leg_length*leg_length)-(feet_length*feet_length))/(2*height*leg_length)) * (180.0 / math.pi)
         Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(height*height))/(2*feet_length*leg_length)) * (180.0 / math.pi)
-            
+
         #Angles from rest_lim position to fully extended legs
         leg_extended_angle = 30
         feet_extended_angle = 55
-        
+
         self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
         self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
 
@@ -743,3 +750,67 @@ class MotionController:
 
         self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_lim_angle + leg_extended_angle - Valpha
         self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
+
+        rest_at_current_post()
+
+    def Walk_at_height(self,height):
+        #Limit height, so robot doesn't crash
+        if (height > 170)
+            height = 170
+        if (height < 80)
+            height = 80
+
+        #Leg and feet length
+        leg_length = 110
+        feet_length = 115
+
+        # Lift of each leg, and walking +-mm
+        walk_lift = 20
+        walk_step = 10
+
+        # Walk gait [rl, fl, rr, fr]
+
+        #Begin with making Pluto stand still at height
+        Stand_at_height(height)
+
+        # Calculate walking points
+        hypotenusan = [math.sqrt(walk_step*walk_step+height*height),
+                       math.sqrt((walk_step*0.66)*(walk_step*0.66)+height*height),
+                       math.sqrt((walk_step*0.33)*(walk_step*0.33)+height*height),
+                       height,
+                       math.sqrt((walk_step*0.33)*(walk_step*0.33)+height*height),
+                       math.sqrt((walk_step*0.66)*(walk_step*0.66)+height*height),
+                       math.sqrt(walk_step*walk_step+height*height),
+                       math.sqrt(walk_step*walk_step+(height-walk_lift)*(height-walk_lift)),
+                       math.sqrt(walk_step*walk_step+(height-walk_lift)*(height-walk_lift))]
+        angles_hip_adjust = [math.atan(walk_step*height) * (180.0 / math.pi),
+                                math.atan((walk_step*0.66)*height) * (180.0 / math.pi),
+                                math.atan((walk_step*0.33)*height) * (180.0 / math.pi),
+                                0,
+                                -math.atan((walk_step*0.33)*height) * (180.0 / math.pi),
+                                -math.atan((walk_step*0.66)*height) * (180.0 / math.pi),
+                                -math.atan(walk_step*height) * (180.0 / math.pi),
+                                -math.atan(walk_step*(height-walk_lift)) * (180.0 / math.pi),
+                                math.atan(walk_step*(height-walk_lift)) * (180.0 / math.pi)]
+
+        #Set angles for first leg start
+        Valpha = math.acos(((hypotenusan[0]*hypotenusan[0])+(leg_length*leg_length)-(feet_length*feet_length))/(2*hypotenusan[0]*leg_length)) * (180.0 / math.pi) + angles_hip_adjust[0]
+        Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(hypotenusan[0]*hypotenusan[0]))/(2*feet_length*leg_length)) * (180.0 / math.pi)
+
+        #Angles from rest_lim position to fully extended legs
+        leg_extended_angle = 30
+        feet_extended_angle = 55
+
+        self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+        self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
+
+        #self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_lim_angle + leg_extended_angle - Valpha
+        #self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
+
+        #time.sleep(0.05)
+
+        #self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+        #self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
+
+        #self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_lim_angle + leg_extended_angle - Valpha
+        #self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
