@@ -801,8 +801,23 @@ class MotionController:
         leg_extended_angle = 30
         feet_extended_angle = 55
 
-        self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
-        self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
+        # Testing one leg step-function
+        i = 0
+
+        try:
+            while True:
+                Valpha = math.acos(((hypotenusan[i]*hypotenusan[i])+(leg_length*leg_length)-(feet_length*feet_length))/(2*hypotenusan[i]*leg_length)) * (180.0 / math.pi) + angles_hip_adjust[i]
+                Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(hypotenusan[i]*hypotenusan[i]))/(2*feet_length*leg_length)) * (180.0 / math.pi)
+
+                self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+                self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
+                time.sleep(1)
+                i = i + 1
+                if (i > 8)
+                    i = 0
+        except KeyboardInterrupt:
+            print('interrupted!')
+
 
         #self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_lim_angle + leg_extended_angle - Valpha
         #self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
