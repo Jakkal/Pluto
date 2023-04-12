@@ -731,15 +731,15 @@ class MotionController:
             feet_extended_angle = 55
             
             self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
-            self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - Vbeta
+            self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
 
-            self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_angle + (variation_leg*x/break_down_steps)
-            self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_angle - (variation_feet*x/break_down_steps)
+            self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_lim_angle + leg_extended_angle - Valpha
+            self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
 
             #time.sleep(0.05)
 
-            self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_angle - ((variation_leg + 5)*x/break_down_steps)
-            self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_angle + ((variation_feet - 5)*x/break_down_steps)
+            self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+            self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
 
-            self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_angle + ((variation_leg - 5)*x/break_down_steps)
-            self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - ((variation_feet + 5)*x/break_down_steps)
+            self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_lim_angle + leg_extended_angle - Valpha
+            self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
