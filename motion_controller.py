@@ -717,29 +717,29 @@ class MotionController:
         # Set new Rest_angles, so whe know where we are
         rest_at_current_post()
 
-        def Stand_at_height(self,height):
-            #Leg and feet length
-            leg_length = 110
-            feet_length = 115
+    def Stand_at_height(self,height):
+        #Leg and feet length
+        leg_length = 110
+        feet_length = 115
             
-            #Set angles
-            Valpha = math.acos(((height*height)+(leg_length*leg_length)-(feet_length*feet_length))/(2*height*leg_length)) * (180.0 / math.pi)
-            Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(height*height))/(2*feet_length*leg_length)) * (180.0 / math.pi)
+        #Set angles
+        Valpha = math.acos(((height*height)+(leg_length*leg_length)-(feet_length*feet_length))/(2*height*leg_length)) * (180.0 / math.pi)
+        Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(height*height))/(2*feet_length*leg_length)) * (180.0 / math.pi)
             
-            #Angles from rest_lim position to fully extended legs
-            leg_extended_angle = 30
-            feet_extended_angle = 55
-            
-            self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
-            self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
+        #Angles from rest_lim position to fully extended legs
+        leg_extended_angle = 30
+        feet_extended_angle = 55
+        
+        self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+        self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
 
-            self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_lim_angle + leg_extended_angle - Valpha
-            self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
+        self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_lim_angle + leg_extended_angle - Valpha
+        self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
 
-            #time.sleep(0.05)
+        #time.sleep(0.05)
 
-            self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_lim_angle - leg_extended_angle + Valpha
-            self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
+        self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+        self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_lim_angle + feet_extended_angle - (180-Vbeta)
 
-            self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_lim_angle + leg_extended_angle - Valpha
-            self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
+        self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_lim_angle + leg_extended_angle - Valpha
+        self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_lim_angle - feet_extended_angle + (180-Vbeta)
