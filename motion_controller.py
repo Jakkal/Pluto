@@ -725,3 +725,21 @@ class MotionController:
             #Set angles
             Valpha = math.acos(((height*height)+(leg_length*leg_length)-(feet_length*feet_length))/(2*height*leg_length)) * (180.0 / math.pi)
             Vbeta = math.acos(((feet_length*feet_length)+(leg_length*leg_length)-(height*height))/(2*feet_length*leg_length)) * (180.0 / math.pi)
+            
+            #Angles from rest_lim position to fully extended legs
+            leg_extended_angle = 30
+            feet_extended_angle = 55
+            
+            self.servo_rear_leg_left.angle = self.servo_rear_leg_left_rest_lim_angle - leg_extended_angle + Valpha
+            self.servo_rear_feet_left.angle = self.servo_rear_feet_left_rest_lim_angle + feet_extended_angle - Vbeta
+
+            self.servo_rear_leg_right.angle = self.servo_rear_leg_right_rest_angle + (variation_leg*x/break_down_steps)
+            self.servo_rear_feet_right.angle = self.servo_rear_feet_right_rest_angle - (variation_feet*x/break_down_steps)
+
+            #time.sleep(0.05)
+
+            self.servo_front_leg_left.angle = self.servo_front_leg_left_rest_angle - ((variation_leg + 5)*x/break_down_steps)
+            self.servo_front_feet_left.angle = self.servo_front_feet_left_rest_angle + ((variation_feet - 5)*x/break_down_steps)
+
+            self.servo_front_leg_right.angle = self.servo_front_leg_right_rest_angle + ((variation_leg - 5)*x/break_down_steps)
+            self.servo_front_feet_right.angle = self.servo_front_feet_right_rest_angle - ((variation_feet + 5)*x/break_down_steps)
