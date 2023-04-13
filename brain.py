@@ -34,16 +34,17 @@ def Initiate_Pluto():
     pluto.foot = 115 #Length of foot
     pluto.leg = 110 #Length of leg
     pluto.foot_fully_extended = 140 #140 degrees from it's rest position! IMPORTANT!
+    pluto.leg_fully_extended = 90
 
 def Servos_to_rest_pos():
     for i in range(12):
         pluto.servo[i].angle = rest_pos[i]
 
- def Stand_at_height(height):
+def Stand_at_height(height):
     #Limit height, so robot doesn't crash
-    if (height > 170)
+    if (height > 170):
         height = 170
-    if (height < 70)
+    if (height < 70):
         height = 70
     #Set angles
     Valpha = math.acos(((height*height)+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*height*pluto.leg)) * (180.0 / math.pi)
@@ -52,8 +53,10 @@ def Servos_to_rest_pos():
     print(Valpha)
     print("Beta")
     print(Vbeta)
+    pluto.servo[1].angle = rest_pos[1] - pluto.leg_fully_extended + Valpha
+    pluto.servo[2].angle = rest_pos[2] + pluto.foot_fully_extended - (180-Vbeta)
 
-    
+
 #---------MAIN BELOW
 
 pluto = ServoKit(channels=16)
