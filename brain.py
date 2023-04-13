@@ -107,23 +107,32 @@ def Walk_at_height(height):
     ]
 
     #Set angles for first leg start
-    Valpha = math.acos(((hypotenusan[0]*hypotenusan[0])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[0]*pluto.leg)) * (180.0 / math.pi) + angles_hip_adjust[0]
-    Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[0]*hypotenusan[0]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
+    #Valpha = math.acos(((hypotenusan[0]*hypotenusan[0])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[0]*pluto.leg)) * (180.0 / math.pi) + angles_hip_adjust[0]
+    #Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[0]*hypotenusan[0]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
 
     # Testing one leg step-function
     i = 0
+    #Gait pos 0-8
+    gait = [0,4,2,6]
+    legc = [1,7,4,10]
+    leginv = [1,-1,1,-1]
 
     try:
         while True:
-            Valpha = math.acos(((hypotenusan[i]*hypotenusan[i])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[i]*pluto.leg)) * (180.0 / math.pi) + angles_hip_adjust[i]
-            Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[i]*hypotenusan[i]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
+            #Calculate angles
+            for legs in range(4):
+                Valpha = math.acos(((hypotenusan[gait[legs]]*hypotenusan[gait[legs]])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[gait[legs]]*pluto.leg)) * (180.0 / math.pi) - angles_hip_adjust[gait[legs]]
+                Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[gait[legs]]*hypotenusan[gait[legs]]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
 
-            pluto.servo[1].angle = rest_pos[1] - pluto.leg_fully_extended + Valpha
-            pluto.servo[2].angle = rest_pos[2] + pluto.foot_fully_extended - (180-Vbeta)
+                pluto.servo[legc[legs]].angle = rest_pos[legc[legs]] - (pluto.leg_fully_extended + Valpha)*leginv[legs]
+                pluto.servo[legc[legs]+1].angle = rest_pos[legc[legs]+1] + (pluto.foot_fully_extended - (180-Vbeta))*leginv[legs]
 
-            pluto.servo[4].angle = rest_pos[4] + pluto.leg_fully_extended - Valpha
-            pluto.servo[5].angle = rest_pos[5] - pluto.foot_fully_extended + (180-Vbeta)
-            
+                gait[legs] = gait[legs]+1
+                if gait[legs] > 8:
+                    gait[legs] = 0
+            #pluto.servo[4].angle = rest_pos[4] + pluto.leg_fully_extended - Valpha
+            #pluto.servo[5].angle = rest_pos[5] - pluto.foot_fully_extended + (180-Vbeta)
+
             time.sleep(0.2)
             i = i + 1
             if (i > 8):
