@@ -95,15 +95,15 @@ def Walk_at_height(height):
         math.sqrt(walk_step*walk_step+(height-walk_lift)*(height-walk_lift))
     ]
     angles_hip_adjust = [
-        math.atan(walk_step*height) * (180.0 / math.pi),
-        math.atan((walk_step*0.66)*height) * (180.0 / math.pi),
-        math.atan((walk_step*0.33)*height) * (180.0 / math.pi),
+        math.atan(walk_step/height) * (180.0 / math.pi),
+        math.atan((walk_step*0.66)/height) * (180.0 / math.pi),
+        math.atan((walk_step*0.33)/height) * (180.0 / math.pi),
         0,
-        -math.atan((walk_step*0.33)*height) * (180.0 / math.pi),
-        -math.atan((walk_step*0.66)*height) * (180.0 / math.pi),
-        -math.atan(walk_step*height) * (180.0 / math.pi),
-        -math.atan(walk_step*(height-walk_lift)) * (180.0 / math.pi),
-        math.atan(walk_step*(height-walk_lift)) * (180.0 / math.pi)
+        -math.atan((walk_step*0.33)/height) * (180.0 / math.pi),
+        -math.atan((walk_step*0.66)/height) * (180.0 / math.pi),
+        -math.atan(walk_step/height) * (180.0 / math.pi),
+        -math.atan(walk_step/(height-walk_lift)) * (180.0 / math.pi),
+        math.atan(walk_step/(height-walk_lift)) * (180.0 / math.pi)
     ]
 
     #Set angles for first leg start
@@ -118,9 +118,13 @@ def Walk_at_height(height):
             Valpha = math.acos(((hypotenusan[i]*hypotenusan[i])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[i]*pluto.leg)) * (180.0 / math.pi) + angles_hip_adjust[i]
             Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[i]*hypotenusan[i]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
 
-            pluto.servo[1].angle = rest_post[1] - pluto.leg_fully_extended + Valpha
+            pluto.servo[1].angle = rest_pos[1] - pluto.leg_fully_extended + Valpha
             pluto.servo[2].angle = rest_pos[2] + pluto.foot_fully_extended - (180-Vbeta)
-            time.sleep(1)
+
+            pluto.servo[4].angle = rest_pos[4] + pluto.leg_fully_extended - Valpha
+            pluto.servo[5].angle = rest_pos[5] - pluto.foot_fully_extended + (180-Vbeta)
+            
+            time.sleep(0.2)
             i = i + 1
             if (i > 8):
                 i = 0
