@@ -7,10 +7,10 @@ from adafruit_servokit import ServoKit
 #Servos numbers are:
 #Left_rear_shoulder = 0  - 	94
 #Left_rear_hip = 1 - 		225
-#Left_rear_knee = 2 - 		30
+#Left_rear_knee = 2 - 		35
 #Right_rear_shoulder = 3 -	35
 #Right_rear_hip = 4 - 		17
-#Right_rear_knee = 5 - 		235
+#Right_rear_knee = 5 - 		220
 
 #Left_front_shoulder = 6	115
 #Left_front_hip = 7		160
@@ -18,7 +18,7 @@ from adafruit_servokit import ServoKit
 #Right_front_shoulder = 9	40
 #Right_front_hip = 10		155
 #Right_front_knee = 11		170
-rest_pos = [94,225,30,35,17,235,115,160,110,40,155,170]
+rest_pos = [94,225,35,35,17,220,115,160,110,40,155,170]
 
 def Initiate_Pluto():
     #Setup the servos range, and pulse
@@ -66,6 +66,67 @@ def Stand_at_height(height):
     pluto.servo[10].angle = rest_pos[10] + pluto.leg_fully_extended - Valpha
     pluto.servo[11].angle = rest_pos[11] - pluto.foot_fully_extended + (180-Vbeta)
 
+def Walk_at_height(height):
+    #Limit height, so robot doesn't crash
+    if (height > 170):
+        height = 170
+    if (height < 80):
+        height = 80
+
+    # Lift of each leg, and walking +-mm
+    walk_lift = 20
+    walk_step = 10
+
+    # Walk gait [rl, fl, rr, fr]
+
+    #Begin with making Pluto stand still at height
+    Stand_at_height(height)
+
+    # Calculate walking points
+    hypotenusan = [
+        math.sqrt(walk_step*walk_step+height*height),
+        math.sqrt((walk_step*0.66)*(walk_step*0.66)+height*height),
+        math.sqrt((walk_step*0.33)*(walk_step*0.33)+height*height),
+        height,
+        math.sqrt((walk_step*0.33)*(walk_step*0.33)+height*height),
+        math.sqrt((walk_step*0.66)*(walk_step*0.66)+height*height),
+        math.sqrt(walk_step*walk_step+height*height),
+        math.sqrt(walk_step*walk_step+(height-walk_lift)*(height-walk_lift)),
+        math.sqrt(walk_step*walk_step+(height-walk_lift)*(height-walk_lift))
+    ]
+    angles_hip_adjust = [
+        math.atan(walk_step*height) * (180.0 / math.pi),
+        math.atan((walk_step*0.66)*height) * (180.0 / math.pi),
+        math.atan((walk_step*0.33)*height) * (180.0 / math.pi),
+        0,
+        -math.atan((walk_step*0.33)*height) * (180.0 / math.pi),
+        -math.atan((walk_step*0.66)*height) * (180.0 / math.pi),
+        -math.atan(walk_step*height) * (180.0 / math.pi),
+        -math.atan(walk_step*(height-walk_lift)) * (180.0 / math.pi),
+        math.atan(walk_step*(height-walk_lift)) * (180.0 / math.pi)
+    ]
+
+    #Set angles for first leg start
+    Valpha = math.acos(((hypotenusan[0]*hypotenusan[0])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[0]*pluto.leg)) * (180.0 / math.pi) + angles_hip_adjust[0]
+    Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[0]*hypotenusan[0]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
+
+    # Testing one leg step-function
+    i = 0
+
+    try:
+        while True:
+            Valpha = math.acos(((hypotenusan[i]*hypotenusan[i])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[i]*pluto.leg)) * (180.0 / math.pi) + angles_hip_adjust[i]
+            Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[i]*hypotenusan[i]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
+
+            pluto.servo[1].angle = rest_post[1] - pluto.leg_fully_extended + Valpha
+            pluto.servo[2].angle = rest_pos[2] + pluto.foot_fully_extended - (180-Vbeta)
+            time.sleep(1)
+            i = i + 1
+            if (i > 8):
+                i = 0
+    except KeyboardInterrupt:
+        print('interrupted!')
+
 #---------MAIN BELOW
 
 pluto = ServoKit(channels=16)
@@ -77,8 +138,14 @@ input("Pluto SETUP complete. Only continue if rest position is set (ENTER)...")
 
 Servos_to_rest_pos()
 
-input("Plut is at rest position (ENTER)...")
+input("Pluto is at rest position (ENTER)...")
 
-Stand_at_height(100)
+Stand_at_height(150)
+
+input("Start Walk sequence (ENTER)...")
+
+Walk_at_height(150)
+
+
 
 time.sleep(1)
