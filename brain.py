@@ -53,9 +53,18 @@ def Stand_at_height(height):
     print(Valpha)
     print("Beta")
     print(Vbeta)
+    #Left rear leg
     pluto.servo[1].angle = rest_pos[1] - pluto.leg_fully_extended + Valpha
     pluto.servo[2].angle = rest_pos[2] + pluto.foot_fully_extended - (180-Vbeta)
-
+    #Right rear leg
+    pluto.servo[4].angle = rest_pos[4] + pluto.leg_fully_extended - Valpha
+    pluto.servo[5].angle = rest_pos[5] - pluto.foot_fully_extended + (180-Vbeta)
+    #Left front leg
+    pluto.servo[7].angle = rest_pos[7] - pluto.leg_fully_extended + Valpha
+    pluto.servo[8].angle = rest_pos[8] + pluto.foot_fully_extended - (180-Vbeta)
+    #Right front leg
+    pluto.servo[10].angle = rest_pos[10] + pluto.leg_fully_extended - Valpha
+    pluto.servo[11].angle = rest_pos[11] - pluto.foot_fully_extended + (180-Vbeta)
 
 #---------MAIN BELOW
 
