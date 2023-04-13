@@ -16,9 +16,9 @@ from adafruit_servokit import ServoKit
 #Left_front_hip = 7		160
 #Left_front_knee = 8		110
 #Right_front_shoulder = 9	40
-#Right_front_hip = 10		155
+#Right_front_hip = 10		160
 #Right_front_knee = 11		170
-rest_pos = [94,225,35,35,17,220,115,160,110,40,155,170]
+rest_pos = [94,225,35,35,17,220,115,160,110,40,165,170]
 
 def Initiate_Pluto():
     #Setup the servos range, and pulse
@@ -74,8 +74,8 @@ def Walk_at_height(height):
         height = 80
 
     # Lift of each leg, and walking +-mm
-    walk_lift = 20
-    walk_step = 10
+    walk_lift = 30
+    walk_step = 50
 
     # Walk gait [rl, fl, rr, fr]
 
@@ -115,7 +115,8 @@ def Walk_at_height(height):
     #Gait pos 0-8
     gait = [0,4,2,6]
     legc = [1,7,4,10]
-    leginv = [1,-1,1,-1]
+    leginv = [1,1,-1,-1]
+
 
     try:
         while True:
@@ -124,8 +125,8 @@ def Walk_at_height(height):
                 Valpha = math.acos(((hypotenusan[gait[legs]]*hypotenusan[gait[legs]])+(pluto.leg*pluto.leg)-(pluto.foot*pluto.foot))/(2*hypotenusan[gait[legs]]*pluto.leg)) * (180.0 / math.pi) - angles_hip_adjust[gait[legs]]
                 Vbeta = math.acos(((pluto.foot*pluto.foot)+(pluto.leg*pluto.leg)-(hypotenusan[gait[legs]]*hypotenusan[gait[legs]]))/(2*pluto.foot*pluto.leg)) * (180.0 / math.pi)
 
-                pluto.servo[legc[legs]].angle = rest_pos[legc[legs]] - (pluto.leg_fully_extended + Valpha)*leginv[legs]
-                pluto.servo[legc[legs]+1].angle = rest_pos[legc[legs]+1] + (pluto.foot_fully_extended - (180-Vbeta))*leginv[legs]
+                pluto.servo[legc[legs]].angle = rest_pos[legc[legs]] - pluto.leg_fully_extended*leginv[legs] + Valpha*leginv[legs]
+                pluto.servo[legc[legs]+1].angle = rest_pos[legc[legs]+1] + pluto.foot_fully_extended*leginv[legs] - (180-Vbeta)*leginv[legs]
 
                 gait[legs] = gait[legs]+1
                 if gait[legs] > 8:
@@ -133,7 +134,7 @@ def Walk_at_height(height):
             #pluto.servo[4].angle = rest_pos[4] + pluto.leg_fully_extended - Valpha
             #pluto.servo[5].angle = rest_pos[5] - pluto.foot_fully_extended + (180-Vbeta)
 
-            time.sleep(0.2)
+            time.sleep(0.15)
             i = i + 1
             if (i > 8):
                 i = 0
@@ -154,6 +155,10 @@ Servos_to_rest_pos()
 input("Pluto is at rest position (ENTER)...")
 
 Stand_at_height(150)
+pluto.servo[0].angle = rest_pos[0] + 10
+pluto.servo[3].angle = rest_pos[3] - 10
+pluto.servo[6].angle = rest_pos[6] + 10
+pluto.servo[9].angle = rest_pos[9] - 10
 
 input("Start Walk sequence (ENTER)...")
 
